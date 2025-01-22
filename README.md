@@ -1,5 +1,5 @@
 
-# CSE 535 - Project 2: PBFT
+# Linear PBFT
 
 ### Project Details
 - **Name**: Kunal Chadha

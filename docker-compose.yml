@@ -1,0 +1,267 @@
+version: '3'
+services:
+  linear-pbft-server-builder:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    image: linear-pbft-server:latest
+    command: ["true"]
+    cpus: "4.0"
+        
+  
+  linear-pbft-client-builder:
+    build:
+      context: .
+      dockerfile: client/Dockerfile
+    image: linear-pbft-client:latest
+    command: ["true"]
+    cpus: "4.0"
+
+  linear-pbft-server_1:
+    image: linear-pbft-server:latest
+    ports:
+      - "50051:50051"
+    environment:
+      HOST_ID: 0
+      PORT: 50051
+      DOCKER_ENV: "true"
+    command: "./linear-pbft-server"
+    volumes:
+      - ./keys/private_key_0.der:/home/app/keys/private_key_0.der
+      - ./keys/public_key_0.der:/home/app/keys/public_key_0.der
+      - ./keys/public_key_1.der:/home/app/keys/public_key_1.der
+      - ./keys/public_key_2.der:/home/app/keys/public_key_2.der
+      - ./keys/public_key_3.der:/home/app/keys/public_key_3.der
+      - ./keys/public_key_4.der:/home/app/keys/public_key_4.der
+      - ./keys/public_key_5.der:/home/app/keys/public_key_5.der
+      - ./keys/public_key_6.der:/home/app/keys/public_key_6.der
+      - ./keys/public_key_client_0.der:/home/app/keys/public_key_client_0.der
+      - ./keys/public_key_client_1.der:/home/app/keys/public_key_client_1.der
+      - ./keys/public_key_client_2.der:/home/app/keys/public_key_client_2.der
+      - ./keys/public_key_client_3.der:/home/app/keys/public_key_client_3.der
+      - ./keys/public_key_client_4.der:/home/app/keys/public_key_client_4.der
+      - ./keys/public_key_client_5.der:/home/app/keys/public_key_client_5.der
+      - ./keys/public_key_client_6.der:/home/app/keys/public_key_client_6.der
+      - ./keys/public_key_client_7.der:/home/app/keys/public_key_client_7.der
+      - ./keys/public_key_client_8.der:/home/app/keys/public_key_client_8.der
+      - ./keys/public_key_client_9.der:/home/app/keys/public_key_client_9.der
+
+  linear-pbft-server_2:
+    image: linear-pbft-server:latest
+    ports:
+      - "50052:50052"
+    environment:
+      HOST_ID: 1
+      PORT: 50052
+      DOCKER_ENV: "true"
+    command: "./linear-pbft-server"
+    volumes:
+      - ./keys/private_key_1.der:/home/app/keys/private_key_1.der
+      - ./keys/public_key_0.der:/home/app/keys/public_key_0.der
+      - ./keys/public_key_1.der:/home/app/keys/public_key_1.der
+      - ./keys/public_key_2.der:/home/app/keys/public_key_2.der
+      - ./keys/public_key_3.der:/home/app/keys/public_key_3.der
+      - ./keys/public_key_4.der:/home/app/keys/public_key_4.der
+      - ./keys/public_key_5.der:/home/app/keys/public_key_5.der
+      - ./keys/public_key_6.der:/home/app/keys/public_key_6.der
+      - ./keys/public_key_client_0.der:/home/app/keys/public_key_client_0.der
+      - ./keys/public_key_client_1.der:/home/app/keys/public_key_client_1.der
+      - ./keys/public_key_client_2.der:/home/app/keys/public_key_client_2.der
+      - ./keys/public_key_client_3.der:/home/app/keys/public_key_client_3.der
+      - ./keys/public_key_client_4.der:/home/app/keys/public_key_client_4.der
+      - ./keys/public_key_client_5.der:/home/app/keys/public_key_client_5.der
+      - ./keys/public_key_client_6.der:/home/app/keys/public_key_client_6.der
+      - ./keys/public_key_client_7.der:/home/app/keys/public_key_client_7.der
+      - ./keys/public_key_client_8.der:/home/app/keys/public_key_client_8.der
+      - ./keys/public_key_client_9.der:/home/app/keys/public_key_client_9.der
+  
+  linear-pbft-server_3:
+    image: linear-pbft-server:latest
+    ports:
+      - "50053:50053"
+    environment:
+      HOST_ID: 2
+      PORT: 50053
+      DOCKER_ENV: "true"
+    command: "./linear-pbft-server"
+    volumes:
+      - ./keys/private_key_2.der:/home/app/keys/private_key_2.der
+      - ./keys/public_key_0.der:/home/app/keys/public_key_0.der
+      - ./keys/public_key_1.der:/home/app/keys/public_key_1.der
+      - ./keys/public_key_2.der:/home/app/keys/public_key_2.der
+      - ./keys/public_key_3.der:/home/app/keys/public_key_3.der
+      - ./keys/public_key_4.der:/home/app/keys/public_key_4.der
+      - ./keys/public_key_5.der:/home/app/keys/public_key_5.der
+      - ./keys/public_key_6.der:/home/app/keys/public_key_6.der
+      - ./keys/public_key_client_0.der:/home/app/keys/public_key_client_0.der
+      - ./keys/public_key_client_1.der:/home/app/keys/public_key_client_1.der
+      - ./keys/public_key_client_2.der:/home/app/keys/public_key_client_2.der
+      - ./keys/public_key_client_3.der:/home/app/keys/public_key_client_3.der
+      - ./keys/public_key_client_4.der:/home/app/keys/public_key_client_4.der
+      - ./keys/public_key_client_5.der:/home/app/keys/public_key_client_5.der
+      - ./keys/public_key_client_6.der:/home/app/keys/public_key_client_6.der
+      - ./keys/public_key_client_7.der:/home/app/keys/public_key_client_7.der
+      - ./keys/public_key_client_8.der:/home/app/keys/public_key_client_8.der
+      - ./keys/public_key_client_9.der:/home/app/keys/public_key_client_9.der
+  
+  linear-pbft-server_4:
+    image: linear-pbft-server:latest
+    ports:
+      - "50054:50054"
+    environment:
+      HOST_ID: 3
+      PORT: 50054
+      DOCKER_ENV: "true"
+    command: "./linear-pbft-server"
+    volumes:
+      - ./keys/private_key_3.der:/home/app/keys/private_key_3.der
+      - ./keys/public_key_0.der:/home/app/keys/public_key_0.der
+      - ./keys/public_key_1.der:/home/app/keys/public_key_1.der
+      - ./keys/public_key_2.der:/home/app/keys/public_key_2.der
+      - ./keys/public_key_3.der:/home/app/keys/public_key_3.der
+      - ./keys/public_key_4.der:/home/app/keys/public_key_4.der
+      - ./keys/public_key_5.der:/home/app/keys/public_key_5.der
+      - ./keys/public_key_6.der:/home/app/keys/public_key_6.der
+      - ./keys/public_key_client_0.der:/home/app/keys/public_key_client_0.der
+      - ./keys/public_key_client_1.der:/home/app/keys/public_key_client_1.der
+      - ./keys/public_key_client_2.der:/home/app/keys/public_key_client_2.der
+      - ./keys/public_key_client_3.der:/home/app/keys/public_key_client_3.der
+      - ./keys/public_key_client_4.der:/home/app/keys/public_key_client_4.der
+      - ./keys/public_key_client_5.der:/home/app/keys/public_key_client_5.der
+      - ./keys/public_key_client_6.der:/home/app/keys/public_key_client_6.der
+      - ./keys/public_key_client_7.der:/home/app/keys/public_key_client_7.der
+      - ./keys/public_key_client_8.der:/home/app/keys/public_key_client_8.der
+      - ./keys/public_key_client_9.der:/home/app/keys/public_key_client_9.der
+  
+  linear-pbft-server_5:
+    image: linear-pbft-server:latest
+    ports:
+      - "50055:50055"
+    environment:
+      HOST_ID: 4
+      PORT: 50055
+      DOCKER_ENV: "true"
+    command: "./linear-pbft-server"
+    volumes:
+      - ./keys/private_key_4.der:/home/app/keys/private_key_4.der
+      - ./keys/public_key_0.der:/home/app/keys/public_key_0.der
+      - ./keys/public_key_1.der:/home/app/keys/public_key_1.der
+      - ./keys/public_key_2.der:/home/app/keys/public_key_2.der
+      - ./keys/public_key_3.der:/home/app/keys/public_key_3.der
+      - ./keys/public_key_4.der:/home/app/keys/public_key_4.der
+      - ./keys/public_key_5.der:/home/app/keys/public_key_5.der
+      - ./keys/public_key_6.der:/home/app/keys/public_key_6.der
+      - ./keys/public_key_client_0.der:/home/app/keys/public_key_client_0.der
+      - ./keys/public_key_client_1.der:/home/app/keys/public_key_client_1.der
+      - ./keys/public_key_client_2.der:/home/app/keys/public_key_client_2.der
+      - ./keys/public_key_client_3.der:/home/app/keys/public_key_client_3.der
+      - ./keys/public_key_client_4.der:/home/app/keys/public_key_client_4.der
+      - ./keys/public_key_client_5.der:/home/app/keys/public_key_client_5.der
+      - ./keys/public_key_client_6.der:/home/app/keys/public_key_client_6.der
+      - ./keys/public_key_client_7.der:/home/app/keys/public_key_client_7.der
+      - ./keys/public_key_client_8.der:/home/app/keys/public_key_client_8.der
+      - ./keys/public_key_client_9.der:/home/app/keys/public_key_client_9.der
+  
+  linear-pbft-server_6:
+    image: linear-pbft-server:latest
+    ports:
+      - "50056:50056"
+    environment:
+      HOST_ID: 5
+      PORT: 50056
+      DOCKER_ENV: "true"
+    command: "./linear-pbft-server"
+    volumes:
+      - ./keys/private_key_5.der:/home/app/keys/private_key_5.der
+      - ./keys/public_key_0.der:/home/app/keys/public_key_0.der
+      - ./keys/public_key_1.der:/home/app/keys/public_key_1.der
+      - ./keys/public_key_2.der:/home/app/keys/public_key_2.der
+      - ./keys/public_key_3.der:/home/app/keys/public_key_3.der
+      - ./keys/public_key_4.der:/home/app/keys/public_key_4.der
+      - ./keys/public_key_5.der:/home/app/keys/public_key_5.der
+      - ./keys/public_key_6.der:/home/app/keys/public_key_6.der
+      - ./keys/public_key_client_0.der:/home/app/keys/public_key_client_0.der
+      - ./keys/public_key_client_1.der:/home/app/keys/public_key_client_1.der
+      - ./keys/public_key_client_2.der:/home/app/keys/public_key_client_2.der
+      - ./keys/public_key_client_3.der:/home/app/keys/public_key_client_3.der
+      - ./keys/public_key_client_4.der:/home/app/keys/public_key_client_4.der
+      - ./keys/public_key_client_5.der:/home/app/keys/public_key_client_5.der
+      - ./keys/public_key_client_6.der:/home/app/keys/public_key_client_6.der
+      - ./keys/public_key_client_7.der:/home/app/keys/public_key_client_7.der
+      - ./keys/public_key_client_8.der:/home/app/keys/public_key_client_8.der
+      - ./keys/public_key_client_9.der:/home/app/keys/public_key_client_9.der
+  
+  linear-pbft-server_7:
+    image: linear-pbft-server:latest
+    ports:
+      - "50057:50057"
+    environment:
+      HOST_ID: 6
+      PORT: 50057
+      DOCKER_ENV: "true"
+    command: "./linear-pbft-server"
+    volumes:
+      - ./keys/private_key_6.der:/home/app/keys/private_key_6.der
+      - ./keys/public_key_0.der:/home/app/keys/public_key_0.der
+      - ./keys/public_key_1.der:/home/app/keys/public_key_1.der
+      - ./keys/public_key_2.der:/home/app/keys/public_key_2.der
+      - ./keys/public_key_3.der:/home/app/keys/public_key_3.der
+      - ./keys/public_key_4.der:/home/app/keys/public_key_4.der
+      - ./keys/public_key_5.der:/home/app/keys/public_key_5.der
+      - ./keys/public_key_6.der:/home/app/keys/public_key_6.der
+      - ./keys/public_key_client_0.der:/home/app/keys/public_key_client_0.der
+      - ./keys/public_key_client_1.der:/home/app/keys/public_key_client_1.der
+      - ./keys/public_key_client_2.der:/home/app/keys/public_key_client_2.der
+      - ./keys/public_key_client_3.der:/home/app/keys/public_key_client_3.der
+      - ./keys/public_key_client_4.der:/home/app/keys/public_key_client_4.der
+      - ./keys/public_key_client_5.der:/home/app/keys/public_key_client_5.der
+      - ./keys/public_key_client_6.der:/home/app/keys/public_key_client_6.der
+      - ./keys/public_key_client_7.der:/home/app/keys/public_key_client_7.der
+      - ./keys/public_key_client_8.der:/home/app/keys/public_key_client_8.der
+      - ./keys/public_key_client_9.der:/home/app/keys/public_key_client_9.der
+  
+
+  linear-pbft-client:
+    image: linear-pbft-client:latest
+    container_name: linear-pbft-client
+    tty: true
+    stdin_open: true
+    environment:
+      DOCKER_ENV: "true"
+    volumes:
+      - ./client/tests/test-1.csv:/home/app/tests/test-1.csv
+      - ./keys/private_key_client_0.der:/home/app/keys/private_key_client_0.der
+      - ./keys/private_key_client_1.der:/home/app/keys/private_key_client_1.der
+      - ./keys/private_key_client_2.der:/home/app/keys/private_key_client_2.der
+      - ./keys/private_key_client_3.der:/home/app/keys/private_key_client_3.der
+      - ./keys/private_key_client_4.der:/home/app/keys/private_key_client_4.der
+      - ./keys/private_key_client_5.der:/home/app/keys/private_key_client_5.der
+      - ./keys/private_key_client_6.der:/home/app/keys/private_key_client_6.der
+      - ./keys/private_key_client_7.der:/home/app/keys/private_key_client_7.der
+      - ./keys/private_key_client_8.der:/home/app/keys/private_key_client_8.der
+      - ./keys/private_key_client_9.der:/home/app/keys/private_key_client_9.der
+      - ./keys/public_key_0.der:/home/app/keys/public_key_0.der
+      - ./keys/public_key_1.der:/home/app/keys/public_key_1.der
+      - ./keys/public_key_2.der:/home/app/keys/public_key_2.der
+      - ./keys/public_key_3.der:/home/app/keys/public_key_3.der
+      - ./keys/public_key_4.der:/home/app/keys/public_key_4.der
+      - ./keys/public_key_5.der:/home/app/keys/public_key_5.der
+      - ./keys/public_key_6.der:/home/app/keys/public_key_6.der
+      - ./keys/public_key_client_0.der:/home/app/keys/public_key_client_0.der
+      - ./keys/public_key_client_1.der:/home/app/keys/public_key_client_1.der
+      - ./keys/public_key_client_2.der:/home/app/keys/public_key_client_2.der
+      - ./keys/public_key_client_3.der:/home/app/keys/public_key_client_3.der
+      - ./keys/public_key_client_4.der:/home/app/keys/public_key_client_4.der
+      - ./keys/public_key_client_5.der:/home/app/keys/public_key_client_5.der
+      - ./keys/public_key_client_6.der:/home/app/keys/public_key_client_6.der
+      - ./keys/public_key_client_7.der:/home/app/keys/public_key_client_7.der
+      - ./keys/public_key_client_8.der:/home/app/keys/public_key_client_8.der
+      - ./keys/public_key_client_9.der:/home/app/keys/public_key_client_9.der
+    depends_on:
+      - linear-pbft-server_1
+      - linear-pbft-server_2
+      - linear-pbft-server_3
+      - linear-pbft-server_4
+      - linear-pbft-server_5
+      - linear-pbft-server_6
+      - linear-pbft-server_7

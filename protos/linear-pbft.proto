@@ -1,0 +1,187 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+
+service PbftClientService {
+    rpc SendTransaction(TransactionRequest) returns (TransactionResponse);
+    rpc TransactionReply(TransactionReplyRequest) returns (google.protobuf.Empty);
+    
+    rpc ServerDown(google.protobuf.Empty) returns (google.protobuf.Empty);
+    rpc ServerUp(google.protobuf.Empty) returns (google.protobuf.Empty);
+
+    rpc MakeFaulty(google.protobuf.Empty) returns (google.protobuf.Empty);
+    rpc MakeNonFaulty(google.protobuf.Empty) returns (google.protobuf.Empty);
+
+    rpc ResetServer(google.protobuf.Empty) returns (google.protobuf.Empty);
+    
+    rpc PrintLog(google.protobuf.Empty) returns (PrintLogResponse);
+    rpc PrintDB(google.protobuf.Empty) returns (PrintDBResponse);
+    rpc PrintStatus(PrintStatusRequest) returns (PrintStatusResponse);
+    rpc PrintView(google.protobuf.Empty) returns (PrintViewResponse);
+    rpc Performance(google.protobuf.Empty) returns (PerformanceResponse);
+}
+
+service PbftProtocolService {
+    rpc PrePrepare(PrePrepareRequest) returns (google.protobuf.Empty);
+    rpc Prepare(PrepareRequest) returns (google.protobuf.Empty);
+    rpc Prepared(PreparedRequest) returns (google.protobuf.Empty);
+    rpc Commit(CommitRequest) returns (google.protobuf.Empty);
+    rpc Committed(CommittedRequest) returns (google.protobuf.Empty);
+
+    rpc Checkpoint(CheckpointRequest) returns (google.protobuf.Empty);
+    
+    rpc ForwardTransaction(TransactionRequest) returns (TransactionResponse);
+    rpc ViewChange(ViewChangeRequest) returns (google.protobuf.Empty);
+    rpc NewView(NewViewRequest) returns (google.protobuf.Empty);
+
+    rpc Catchup(CatchupRequest) returns (CatchupResponse);
+}
+
+message PrePrepareRequest {
+    int32 view_number = 1;
+    int32 sequence_number = 2;
+    string message_digest = 3;
+    int32 server_id = 4;
+    bool is_nop = 5;
+    TransactionRequestEntry message = 6;
+    bytes signature = 7;
+}
+
+message PrepareRequest {
+    int32 view_number = 1;
+    int32 sequence_number = 2;
+    string message_digest = 3;
+    int32 server_id = 4;
+    bytes signature = 5;
+}
+
+message PreparedRequest {
+    PrePrepareRequest preprepare_request = 1;
+    repeated PrepareRequest prepare_requests = 2;
+}
+
+message CommitRequest {
+    int32 view_number = 1;
+    int32 sequence_number = 2;
+    string message_digest = 3;
+    int32 server_id = 4;
+    bytes signature = 5;
+}
+
+message CommittedRequest {
+    PrePrepareRequest preprepare_request = 1;
+    repeated PrepareRequest prepare_requests = 2;
+    repeated CommitRequest commit_requests = 3;
+}
+
+message CatchupRequest {
+    int32 view_number = 1;
+    int32 from_sequence_number = 2;
+}
+
+message CatchupResponse {
+    repeated CommittedRequest committed_requests = 1;
+}
+
+message BalanceEntry {
+    int32 client_id = 1;
+    int32 amount = 2;
+}
+
+message TransactionRequestEntry {
+    int32 client_id = 1;
+    int32 sender = 2;
+    int32 receiver = 3;
+    int32 amount = 4;
+    int64 timestamp = 5;
+}
+
+message TransactionRequest {
+    TransactionRequestEntry transaction = 1;
+    bool retrying = 2;
+    bytes signature = 3;
+}
+
+message TransactionResponse {
+    bool valid_view = 1;
+    int32 reset_view_number = 2;
+}
+
+message TransactionReplyRequest {
+    int32 view_number = 1;
+    int64 timestamp = 2;
+    int32 client_id = 3;
+    int32 server_id = 4;
+    bool is_invalid_request = 5;
+    string balances_digest = 6;
+    bytes signature = 7;
+}
+
+message CheckpointRequest {
+    int32 view_number = 1;
+    int32 sequence_number = 2;
+    int32 server_id = 3;
+    string state_digest = 4;
+    repeated BalanceEntry state = 5;
+    bytes signature = 6;
+}
+
+message ViewChangePrepareRequests {
+    PrePrepareRequest preprepare_request = 1;
+    repeated PrepareRequest prepare_requests = 2;
+}
+
+message ViewChangeRequest {
+    int32 next_view_number = 1;
+    int32 checkpoint_sequence_number = 2;
+    repeated CheckpointRequest checkpoint_requests = 3;
+    repeated ViewChangePrepareRequests prepare_requests = 4;
+    int32 server_id = 5;
+    bytes signature = 6;
+}
+
+message NewViewRequest {
+    int32 server_id = 1;
+    int32 view_number = 2;
+    repeated ViewChangeRequest view_change_requests = 3;
+    repeated PrePrepareRequest preprepare_requests = 4;
+    bytes signature = 6;
+}
+
+message LogEntry {
+    PrePrepareRequest preprepare = 1;
+    repeated PrepareRequest prepares = 2;
+    repeated CommitRequest commits = 3;
+    TransactionReplyRequest reply = 4;
+}
+
+message CheckpointLogEntry {
+    int32 view_number = 1;
+    int32 sequence_number = 2;
+    repeated CheckpointRequest checkpoint_request = 4;
+}
+
+message PrintLogResponse {
+    repeated LogEntry log_entries = 1;
+    repeated CheckpointLogEntry checkpoint_entries = 2;
+}
+
+message PrintDBResponse {
+    repeated BalanceEntry balance = 5;
+}
+
+message PrintStatusRequest {
+    int32 sequence_number = 1;
+}
+
+message PrintStatusResponse {
+    int32 status = 1;
+}
+
+message PrintViewResponse {
+    repeated NewViewRequest new_view_request = 1;
+}
+
+message PerformanceResponse {
+    float throughput = 1;
+    float latency = 2;
+}
